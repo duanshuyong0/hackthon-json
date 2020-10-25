@@ -1,0 +1,98 @@
+{
+    "components": [
+        {
+            "id": "productType",
+            "uiType": "uiRadio",
+            "props": {
+                "label": "产品类型",
+                "value": "",
+                "dataSource": [
+                    {
+                        "text": "湖北0元特惠产品",
+                        "value": "1"
+                    },
+                    {
+                        "text": "普通产品",
+                        "value": "2"
+                    }
+                ]
+            }
+        },
+        {
+            "id": "needIdCard",
+            "uiType": "uiRadio",
+            "props": {
+                "label": "证件",
+                "value": "",
+                "dataSource": [
+                    {
+                        "text": "需要身份证",
+                        "value": "1"
+                    },
+                    {
+                        "text": "无需身份证",
+                        "value": "2"
+                    }
+                ]
+            }
+        },
+        {
+            "id": "idCardNumber",
+            "uiType": "uiInput",
+            "props": {
+                "label": "身份证",
+                "required": false,
+                "visible": false,
+                "value": ""
+            }
+        },
+        {
+            "id": "submitButton",
+            "uiType": "uiButton",
+            "props": {
+                "text": "提交发布"
+            }
+        }
+    ],
+    "rules": [
+        {
+            "condition": "${productType.props.value} == 1",
+            "target": {
+                "needIdCard": {
+                    "props": {
+                        "visible": true,
+                        "dataSource": [
+                            {
+                                "text": "需要身份证",
+                                "value": "1"
+                            }
+                        ],
+                        "value": 1
+                    }
+                }
+            }
+        },
+        {
+            "condition": "${productType.props.value} == 1 && ${needIdCard.props.value} == 1",
+            "target": {
+                "idCardNumber": {
+                    "props": {
+                        "required": true,
+                        "visible": true,
+                        "pattern": ""
+                    }
+                }
+            }
+        }
+    ],
+    "request": {
+        "submit": {
+            "event": "${submitButton}:click",
+            "action": "submit.htm",
+            "type": "POST",
+            "fields": {
+                "data": "${formValues}"
+            }
+        }
+    }
+}

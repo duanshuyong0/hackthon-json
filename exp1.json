@@ -1,0 +1,60 @@
+{
+    "components": [
+        {
+            "id": "productTitle",
+            "uiType": "uiInput",
+            "props": {
+                "label": "商品标题",
+                "required": true,
+                "value": ""
+            }
+        },
+        {
+            "id": "productType",
+            "uiType": "uiRadio",
+            "props": {
+                "label": "产品类型",
+                "value": "",
+                "dataSource": [
+                    {
+                        "text": "一日游",
+                        "value": "1"
+                    },
+                    {
+                        "text": "景点门票",
+                        "value": "2"
+                    }
+                ]
+            }
+        },
+        {
+            "id": "submitButton",
+            "uiType": "uiButton",
+            "props": {
+                "text": "提交发布"
+            }
+        }
+    ],
+    "rules": [
+        {
+            "condition": "${productType.props.value} == 1",
+            "target": {
+                "productTitle": {
+                    "props": {
+                        "required": false
+                    }
+                }
+            }
+        }
+    ],
+    "request": {
+        "submit": {
+            "event": "${submitButton}:click",
+            "action": "submit.htm",
+            "type": "POST",
+            "fields": {
+                "data": "${formValues}"
+            }
+        }
+    }
+}
